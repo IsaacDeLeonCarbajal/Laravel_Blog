@@ -6,6 +6,7 @@
 
 @section('content-center')
     <a href="{{ url()->previous() }}">Regresar</a>
+    
     <h1 class="col-12 text-center">{{ $publicacion->titulo }}</h1>
 
     <div class="col-12 mt-5 d-flex justify-content-between text-muted">
@@ -64,7 +65,9 @@
 @endsection
 
 @section('content-right')
-    <h4>Otras publicaciones del autor</h4>
+    <a class="btn btn-primary" href="{{route('usuarios.show', $publicacion->usuario)}}">Ver Usuario</a>
+
+    <h5 class="col-12 mt-3">Otras publicaciones del autor</h5>
 
     <div class="col-12">
         @foreach ($publicacion->usuario->publicaciones as $pub)

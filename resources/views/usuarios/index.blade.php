@@ -5,8 +5,6 @@
 @endsection
 
 @section('content-center')
-    <a href="{{ url()->previous() }}">Regresar</a>
-
     <h1 class="col-12 text-center">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
 
     <label class="text-muted mt-4">Correo electrónico: {{ $usuario->correo }}</label>
@@ -27,5 +25,23 @@
                 @endcomponent
             @endforeach
         </div>
+
+        <h3 class="col-12 my-4">Comentarios</h3>
+
+        @foreach ($usuario->comentarios as $com)
+            @component('layouts.comentario-list')
+                @slot('title', $com->publicacion->titulo)
+
+                @slot('subtitle', $com->updated_at)
+
+                @slot('route', route('publicaciones.show', $com->publicacion))
+
+                @slot('content', $com->contenido)
+            @endcomponent
+        @endforeach
     </div>
+@endsection
+
+@section('content-right')
+    <a class="btn btn-primary" href="{{ route('publicaciones.create') }}">Nueva publicación</a>
 @endsection

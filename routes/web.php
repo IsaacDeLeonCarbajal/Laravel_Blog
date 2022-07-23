@@ -25,7 +25,9 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 Route::controller(UsuarioController::class)->group(function () {
-    Route::get('/usuarios', 'show')->name('usuarios.show');
+    Route::get('/usuarios', 'index')->name('usuarios.index');
+
+    Route::get('/usuarios/{usuario}', 'show')->name('usuarios.show');
 });
 
 Route::controller(PublicacionController::class)->group(function () {

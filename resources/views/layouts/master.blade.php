@@ -31,7 +31,7 @@
 
                     <ul class="navbar-nav mb-2 mb-lg-0" id="div-btn-sesion">
                         <li class="nav-item mb-3">
-                            <a class="btn btn-outline-success me-3" href="{{ route('usuarios.show') }}">Mi Perfil</a>
+                            <a class="btn btn-outline-success me-3" href="{{ route('usuarios.index') }}">Mi Perfil</a>
                         </li>
 
                         <li class="nav-item mb-3">
