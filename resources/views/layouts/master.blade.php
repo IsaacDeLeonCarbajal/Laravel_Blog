@@ -21,17 +21,23 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbar-content">
-                    <form class="ms-auto me-5 me-md-3" role="search">
+                    <form class="ms-auto me-5 me-md-3" action="{{route('home')}}" role="search">
                         <div class="input-group mb-3">
-                            <input class="form-control" type="text" placeholder="Buscar" style="border-right: none;">
+                            <input class="form-control" type="text" name="busqueda" placeholder="Buscar publicaciones" style="border-right: none;">
+
                             <button class="btn btn-outline-secondary btn-buscar" type="submit"></button>
                         </div>
                     </form>
 
                     <ul class="navbar-nav mb-2 mb-lg-0" id="div-btn-sesion">
                         <li class="nav-item mb-3">
+                            <a class="btn btn-outline-success me-3" href="{{ route('usuarios.show') }}">Mi Perfil</a>
+                        </li>
+
+                        <li class="nav-item mb-3">
                             <a class="btn btn-outline-primary me-3" href="#">Iniciar Sesión</a>
                         </li>
+
                         <li class="nav-item mb-3">
                             <a class="btn btn-primary" href="#">Registrarse</a>
                         </li>
@@ -50,10 +56,6 @@
             @yield('content-right')
         </div>
     </div>
-
-    <script>
-        @yield('script')
-    </script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

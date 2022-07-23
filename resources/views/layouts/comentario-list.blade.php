@@ -1,7 +1,13 @@
 <div class="col-12">
-    <h5>{{$title}}</h5>
+    <div class="d-flex flex-row col-12">
+        <h5 class="me-auto">{{ $title }}</h5>
 
-    <label class="text-muted">{{$subtitle}}</label>
+        @if(isset($route))
+            <a class="btn btn-outline-secondary" href="{{$route}}">Ver</a>
+        @endif
+    </div>
 
-    <p>{{$content}}</p>
+    <label class="text-muted">{{ $subtitle }}</label>
+
+    <p style="white-space: pre-wrap;">{{ $content }}</p>
 </div>

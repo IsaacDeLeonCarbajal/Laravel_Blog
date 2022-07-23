@@ -16,13 +16,11 @@
 
     <div class="col-12 mt-3 text-muted">
         @foreach ($publicacion->categorias as $cat)
-            <a class="btn btn-outline-secondary me-3 py-1" href="{{ route('home') }}/?categoria={{ $cat->id }}">{{ $cat->categoria }}</a>
+            <a class="btn btn-outline-secondary me-3 py-1" href="{{ route('home.categorias', $cat) }}">{{ $cat->categoria }}</a>
         @endforeach
     </div>
 
-    <div class="col-12 mt-4 fs-5">
-        {{ $publicacion->contenido }}
-    </div>
+    <div class="col-12 mt-4 fs-5" style="white-space: pre-wrap;">{{ $publicacion->contenido }}</div>
 
     <div class="col-12 mt-5">
         <h4>Comentarios</h4>
@@ -31,17 +29,11 @@
 
         @foreach ($publicacion->comentarios as $com)
             @component('layouts.comentario-list')
-                @slot('title')
-                    {{ $com->usuario->nombre }}
-                @endslot
+                @slot('title', $com->usuario->nombre . ' ' . $com->usuario->apellido_paterno . ' ' . $com->usuario->apellido_materno)
 
-                @slot('subtitle')
-                    {{ $com->updated_at }}
-                @endslot
+                @slot('subtitle', $com->updated_at)
 
-                @slot('content')
-                    {{ $com->contenido }}
-                @endslot
+                @slot('content', $com->contenido)
             @endcomponent
         @endforeach
 
@@ -52,7 +44,19 @@
 
             <input type="hidden" name="publicacion_id" value="{{ $publicacion->id }}">
 
-            <textarea class="form-control mb-3" name="contenido" rows="3"></textarea>
+            @error('publicacion_id')
+                @component('layouts.alert')
+                    @slot('message', $message)
+                @endcomponent
+            @enderror
+
+            <textarea class="form-control mb-3" name="contenido" rows="3">{{ old('contenido') }}</textarea>
+
+            @error('contenido')
+                @component('layouts.alert')
+                    @slot('message', $message)
+                @endcomponent
+            @enderror
 
             <button class="btn btn-primary" type="submit">Enviar</button>
         </form>
@@ -83,7 +87,4 @@
             @endif
         @endforeach
     </div>
-@endsection
-
-@section('script')
 @endsection

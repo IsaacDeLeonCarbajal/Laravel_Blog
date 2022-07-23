@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    public function show(Usuario $usuario) {
+    public function show()
+    {
+        $usuario = Usuario::find(HomeController::getUsuarioId());
+
         return view('usuarios.show', compact('usuario'));
     }
 }

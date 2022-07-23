@@ -11,7 +11,7 @@
 
     <div class="card-footer pt-0 pb-1">
         @foreach ($categs as $cat)
-            <a class="btn btn-secondary mx-0 py-0 px-2" href="{{ route('home') }}/?categoria={{ $cat->id }}"><small>{{ $cat->categoria }}</small></a>
+            <a class="btn btn-secondary mx-0 py-0 px-2" href="{{ route('home.categorias', $cat) }}"><small>{{ $cat->categoria }}</small></a>
         @endforeach
     </div>
 </div>

@@ -9,14 +9,16 @@ use Illuminate\Validation\Rule;
 
 class ComentarioController extends Controller
 {
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
         $request->validate([
             'contenido' => 'required | string',
-            'publicacion_id' => ['required', Rule::in(Publicacion::select('id')->pluck('id'))]
+            'publicacion_id' => ['required', 'exists:publicaciones,id']
         ]);
 
         $comentario = new Comentario();
-        $comentario->usuario_id = (new HomeController())->getUsuarioId();
+        $comentario->usuario_id = HomeController::getUsuarioId();
         $comentario->publicacion_id = $request->publicacion_id;
         $comentario->contenido = $request->contenido;
 
