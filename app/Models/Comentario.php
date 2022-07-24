@@ -18,4 +18,12 @@ class Comentario extends Model
     public function publicacion() {
         return $this->belongsTo(Publicacion::class);
     }
+
+    public function comentario() {
+        return $this->belongsTo(Comentario::class);
+    }
+
+    public function respuestas() {
+        return $this->hasMany(Comentario::class);
+    }
 }

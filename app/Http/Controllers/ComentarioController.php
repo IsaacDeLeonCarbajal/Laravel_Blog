@@ -14,13 +14,20 @@ class ComentarioController extends Controller
     {
         $request->validate([
             'contenido' => 'required | string',
-            'publicacion_id' => ['required', 'exists:publicaciones,id']
+            'publicacion_id' => 'required | exists:publicaciones,id',
+            'comentario_id' => 'nullable | exists:comentarios,id'
         ]);
 
         $comentario = new Comentario();
         $comentario->usuario_id = HomeController::getUsuarioId();
         $comentario->publicacion_id = $request->publicacion_id;
         $comentario->contenido = $request->contenido;
+
+        if ($request->comentario_id) {
+            $comentario->comentario_id = $request->comentario_id;
+        } else {
+            $comentario->comentario_id = null;
+        }
 
         $comentario->save();
 

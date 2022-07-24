@@ -29,7 +29,7 @@
         <h3 class="col-12 my-4">Comentarios</h3>
 
         @foreach ($usuario->comentarios as $com)
-            @component('layouts.comentario-list')
+            @component('layouts.comentario-view')
                 @slot('title', $com->publicacion->titulo)
 
                 @slot('subtitle', $com->updated_at)

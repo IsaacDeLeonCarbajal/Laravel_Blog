@@ -26,7 +26,7 @@ class Publicacion extends Model
         return $this->belongsToMany(Categoria::class);
     }
 
-    public function comentarios() {
+    public function respuestas() {
         return $this->hasMany(Comentario::class)->orderBy('created_at', 'desc');
     }
 

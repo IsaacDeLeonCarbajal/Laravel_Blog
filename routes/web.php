@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Categoria;
+use App\Models\Publicacion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,5 +44,5 @@ Route::controller(ComentarioController::class)->group(function () {
 });
 
 Route::get('/test', function() {
-    return Categoria::select('id')->pluck('id');
+    return Publicacion::find(20)->comentarios->pluck('id');
 });
