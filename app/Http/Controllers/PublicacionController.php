@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\CategoriaPublicacion;
 use App\Models\Publicacion;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -34,7 +35,7 @@ class PublicacionController extends Controller
 
         $publicacion->save();
 
-        foreach($request->categorias as $cat) {
+        foreach ($request->categorias as $cat) {
             $catPub = new CategoriaPublicacion();
             $catPub->publicacion_id = $publicacion->id;
             $catPub->categoria_id = $cat;
@@ -48,5 +49,16 @@ class PublicacionController extends Controller
     public function show(Publicacion $publicacion)
     {
         return view('publicaciones.show', compact('publicacion'));
+    }
+
+    public function destroy(Publicacion $publicacion)
+    {
+        if (Usuario::find(HomeController::getUsuarioId())->publicaciones->contains('id', $publicacion->id)) {
+            $publicacion->delete();
+        } else {
+            return "Error al eliminar la publicación";
+        }
+
+        return redirect()->route('usuarios.index');
     }
 }

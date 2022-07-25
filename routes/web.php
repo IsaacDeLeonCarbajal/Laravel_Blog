@@ -6,6 +6,7 @@ use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Categoria;
 use App\Models\Publicacion;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,12 +38,16 @@ Route::controller(PublicacionController::class)->group(function () {
     Route::post('/publicaciones', 'store')->name('publicaciones.store');
     
     Route::get('/publicaciones/{publicacion}', 'show')->name('publicaciones.show');
+
+    Route::delete('/publicaciones/{publicacion}', 'destroy')->name('publicaciones.destroy');
 });
 
 Route::controller(ComentarioController::class)->group(function () {
     Route::post('/comentarios', 'store')->name('comentarios.store');
+
+    Route::delete('/comentarios/{comentario}', 'destroy')->name('comentarios.destroy');
 });
 
 Route::get('/test', function() {
-    return Publicacion::find(20)->comentarios->pluck('id');
+    return  Usuario::find(HomeController::getUsuarioId())->publicaciones->pluck('id');
 });

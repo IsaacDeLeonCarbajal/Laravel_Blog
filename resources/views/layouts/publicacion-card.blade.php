@@ -9,12 +9,14 @@
 
             <p class="card-text">{{ $content }}</p>
 
-            <a href="{{ $route }}" class="btn btn-primary stretched-link">Ver</a>
+            <a href="{{ $route }}" class="btn btn-primary {{ Str::length($slot) ? '' : 'stretched-link' }}">Ver</a>
+
+            {{$slot}}
         </div>
 
         <div class="card-footer">
             @foreach ($categs as $cat)
-                <a class="btn btn-outline-secondary" href="#">{{ $cat->categoria }}</a>
+                <a class="btn btn-outline-secondary" href="{{ route('home.categorias', $cat) }}">{{ $cat->categoria }}</a>
             @endforeach
         </div>
     </div>

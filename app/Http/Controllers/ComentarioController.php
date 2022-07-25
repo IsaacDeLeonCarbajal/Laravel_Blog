@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comentario;
 use App\Models\Publicacion;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -32,5 +33,13 @@ class ComentarioController extends Controller
         $comentario->save();
 
         return redirect()->route('publicaciones.show', ['publicacion' => $request->publicacion_id]);
+    }
+
+    public function destroy(Comentario $comentario) {
+        if (Usuario::find(HomeController::getUsuarioId())->comentarios->contains('id', $comentario->id)) {
+            $comentario->delete();
+        }
+
+        return redirect()->route('usuarios.index');
     }
 }

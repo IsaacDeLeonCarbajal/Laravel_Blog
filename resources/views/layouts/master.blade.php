@@ -35,11 +35,11 @@
                         </li>
 
                         <li class="nav-item mb-3">
-                            <a class="btn btn-outline-primary me-3" href="#">Iniciar Sesión</a>
+                            <a class="btn btn-outline-primary me-3 d-none" href="#">Iniciar Sesión</a>
                         </li>
 
                         <li class="nav-item mb-3">
-                            <a class="btn btn-primary" href="#">Registrarse</a>
+                            <a class="btn btn-primary d-none" href="#">Registrarse</a>
                         </li>
                     </ul>
                 </div>
