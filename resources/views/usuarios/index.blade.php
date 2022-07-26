@@ -23,7 +23,10 @@
 
                     @slot('route', route('publicaciones.show', $pub))
 
-                    <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar publicación</a>
+                    <a class="btn btn-secondary ms-2" href="{{ route('publicaciones.edit', $pub) }}">Editar</a>
+                    
+                    <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar</button>
+
                     @endcomponent
             @endforeach
         </div>
@@ -36,11 +39,13 @@
 
                 @slot('subtitle', $com->updated_at)
 
-                @slot('route', route('publicaciones.show', $com->publicacion))
-
                 @slot('content', $com->contenido)
 
-                <button class="ms-3 btn btn-danger" type="button" onclick="eliminarPublicacion('{{ route('comentarios.destroy', $com) }}', {{ count($com->respuestas) }});">Eliminar comentario</button>
+                <a class="btn btn-outline-primary" href="{{ route('publicaciones.show', $com->publicacion) }}">Ver publicación</a>
+
+                <a class="btn btn-secondary ms-2" href="{{ route('comentarios.edit', $com) }}">Editar</a>
+
+                <button class="btn btn-danger ms-2" type="button" onclick="eliminarComentario('{{ route('comentarios.destroy', $com) }}', {{ count($com->respuestas) }});">Eliminar</button>
             @endcomponent
         @endforeach
     </div>
@@ -68,7 +73,7 @@
             </div>
 
             <div class="row mt-4">
-                <button class="col-6 col-md-3 offset-md-2 btn btn-outline-secondary" type="button" onclick="document.getElementById('dlg-eliminar-publicacion').close();">Cancelar</button>
+                <button class="col-6 col-md-3 offset-md-2 btn btn-secondary" type="button" onclick="document.getElementById('dlg-eliminar-publicacion').close();">Cancelar</button>
 
                 <button class="col-6 col-md-3 offset-md-2 btn btn-danger" type="submit">Eliminar</a>
             </div>
@@ -90,7 +95,7 @@
             </div>
 
             <div class="row mt-4">
-                <button class="col-6 col-md-3 offset-md-2 btn btn-outline-secondary" type="button" onclick="document.getElementById('dlg-eliminar-comentario').close();">Cancelar</button>
+                <button class="col-6 col-md-3 offset-md-2 btn btn-secondary" type="button" onclick="document.getElementById('dlg-eliminar-comentario').close();">Cancelar</button>
 
                 <button class="col-6 col-md-3 offset-md-2 btn btn-danger" type="submit">Eliminar</a>
             </div>
@@ -108,7 +113,7 @@
             document.getElementById('dlg-eliminar-publicacion').showModal();
         }
 
-        function eliminarPublicacion(action, cantResps) {
+        function eliminarComentario(action, cantResps) {
             jQuery('#cant-respuestas-comentario').text(cantResps);
 
             document.getElementById('form-eliminar-comentario').action = action;

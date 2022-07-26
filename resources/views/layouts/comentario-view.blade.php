@@ -2,10 +2,6 @@
     <div class="d-flex flex-row col-12">
         <h5 class="me-auto">{{ $title }}</h5>
 
-        @if (isset($route))
-            <a class="btn btn-outline-secondary" href="{{ $route }}">Ver publicación</a>
-        @endif
-
         {{ $slot }}
     </div>
 

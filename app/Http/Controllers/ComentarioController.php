@@ -35,10 +35,32 @@ class ComentarioController extends Controller
         return redirect()->route('publicaciones.show', ['publicacion' => $request->publicacion_id]);
     }
 
-    public function destroy(Comentario $comentario) {
-        if (Usuario::find(HomeController::getUsuarioId())->comentarios->contains('id', $comentario->id)) {
-            $comentario->delete();
+    public function edit(Comentario $comentario) {
+        return view('comentarios.edit', compact('comentario'));
+    }
+
+    public function update(Comentario $comentario, Request $request) {
+        $request->validate([
+            'contenido' => 'required | string',
+        ]);
+
+        if (!Usuario::find(HomeController::getUsuarioId())->comentarios->contains($comentario)) {
+            return "ERROR: No tiene permiso de editar ese comentario";
         }
+
+        $comentario->contenido = $request->contenido;
+
+        $comentario->save();
+
+        return redirect()->route('usuarios.index');
+    }
+
+    public function destroy(Comentario $comentario) {
+        if (!Usuario::find(HomeController::getUsuarioId())->comentarios->contains($comentario)) {
+            return "ERROR: No tiene permiso para eliminar ese comentario";
+        }
+
+        $comentario->delete();
 
         return redirect()->route('usuarios.index');
     }

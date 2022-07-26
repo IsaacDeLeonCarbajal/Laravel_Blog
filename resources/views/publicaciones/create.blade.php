@@ -6,7 +6,7 @@
     <form action="{{ route('publicaciones.store') }}" method="POST">
         @csrf
 
-        <input class="form-control form-control-lg" type="text" name="titulo" placeholder="Titulo de la Publicación">
+        <input class="form-control form-control-lg" type="text" name="titulo" value="{{ old('titulo') }}" placeholder="Titulo de la Publicación">
 
         @error('titulo')
             @component('layouts.alert')
@@ -14,7 +14,7 @@
             @endcomponent
         @enderror
 
-        <textarea class="form-control mt-5" name="contenido" rows="10" placeholder="Contenido"></textarea>
+        <textarea class="form-control mt-5" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
 
         @error('contenido')
             @component('layouts.alert')
@@ -26,7 +26,10 @@
 
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 col-12">
             @foreach ($categorias as $cat)
-                <label class="col-12 mb-2"><input class="me-2" type="checkbox" name="categorias[]" value="{{ $cat->id }}">{{ $cat->categoria }}</label>
+                <label class="col-12 mb-2">
+                    <input class="me-2" type="checkbox" name="categorias[]" value="{{ $cat->id }}" {{ old('categorias') != null ? (in_array($cat->id, old('categorias')) ? 'checked' : '') : '' }}>
+                    {{ $cat->categoria }}
+                </label>
             @endforeach
         </div>
 
@@ -35,7 +38,7 @@
                 @slot('message', $message)
             @endcomponent
         @enderror
-        
+
         @error('categorias.*')
             @component('layouts.alert')
                 @slot('message', $message)

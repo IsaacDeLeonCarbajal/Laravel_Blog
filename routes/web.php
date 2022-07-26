@@ -39,11 +39,19 @@ Route::controller(PublicacionController::class)->group(function () {
     
     Route::get('/publicaciones/{publicacion}', 'show')->name('publicaciones.show');
 
+    Route::get('/publicaciones/{publicacion}/edit', 'edit')->name('publicaciones.edit');
+
+    Route::put('/publicaciones/{publicacion}', 'update')->name('publicaciones.update');
+
     Route::delete('/publicaciones/{publicacion}', 'destroy')->name('publicaciones.destroy');
 });
 
 Route::controller(ComentarioController::class)->group(function () {
     Route::post('/comentarios', 'store')->name('comentarios.store');
+
+    Route::get('/comentarios/{comentario}/edit', 'edit')->name('comentarios.edit');
+
+    Route::put('/comentarios/{comentario}', 'update')->name('comentarios.update');
 
     Route::delete('/comentarios/{comentario}', 'destroy')->name('comentarios.destroy');
 });
