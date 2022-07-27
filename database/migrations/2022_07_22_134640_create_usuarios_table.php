@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nombre', 30);
             $table->string('apellido_paterno', 30);
             $table->string('apellido_materno', 30);
-            $table->string('correo')->unique();
-            $table->string('contrasena');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }

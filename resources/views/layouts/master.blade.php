@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>@yield('title')</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
 </head>
@@ -21,7 +23,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbar-content">
-                    <form class="ms-auto me-5 me-md-3" action="{{route('home')}}" role="search">
+                    <form class="ms-auto me-5 me-md-3" action="{{ route('home') }}" role="search">
                         <div class="input-group mb-3">
                             <input class="form-control" type="text" name="busqueda" placeholder="Buscar publicaciones" style="border-right: none;">
 
@@ -30,17 +32,25 @@
                     </form>
 
                     <ul class="navbar-nav mb-2 mb-lg-0" id="div-btn-sesion">
-                        <li class="nav-item mb-3">
-                            <a class="btn btn-outline-success me-3" href="{{ route('usuarios.index') }}">Mi Perfil</a>
-                        </li>
+                        @auth
+                            <li class="nav-item mb-3">
+                                <a class="btn btn-outline-dark me-3" href="{{ route('login.logout') }}">Cerrar Sesión</a>
+                            </li>
 
-                        <li class="nav-item mb-3">
-                            <a class="btn btn-outline-primary me-3 d-none" href="#">Iniciar Sesión</a>
-                        </li>
+                            <li class="nav-item mb-3">
+                                <a class="btn btn-outline-success me-3" href="{{ route('usuarios.index') }}">Mi Perfil</a>
+                            </li>
+                        @endauth
 
-                        <li class="nav-item mb-3">
-                            <a class="btn btn-primary d-none" href="#">Registrarse</a>
-                        </li>
+                        @guest
+                            <li class="nav-item mb-3">
+                                <a class="btn btn-outline-primary me-3" href="{{ route('login.showForm') }}">Iniciar Sesión</a>
+                            </li>
+
+                            <li class="nav-item mb-3">
+                                <a class="btn btn-primary" href="{{ route('register.showForm') }}">Registrarse</a>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>

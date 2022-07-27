@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\CategoriaPublicacion;
 use App\Models\Publicacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,6 @@ class HomeController extends Controller
 
     public static function getUsuarioId()
     {
-        return 76;
+        return Auth::user()->id;
     }
 }

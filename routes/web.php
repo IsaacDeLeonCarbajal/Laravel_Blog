@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UsuarioController;
-use App\Models\Categoria;
-use App\Models\Publicacion;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +26,20 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/categoria/{categoria}', 'index')->name('home.categorias');
 });
 
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/registrar', 'showForm')->name('register.showForm');
+
+    Route::post('/registrar', 'store')->name('register.store');
+});
+
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'showForm')->name('login.showForm');
+
+    Route::post('/login', 'login')->name('login.login');
+
+    Route::get('/logout', 'logout')->name('login.logout');
+});
+
 Route::controller(UsuarioController::class)->group(function () {
     Route::get('/usuarios', 'index')->name('usuarios.index');
 
@@ -34,9 +48,9 @@ Route::controller(UsuarioController::class)->group(function () {
 
 Route::controller(PublicacionController::class)->group(function () {
     Route::get('/publicaciones', 'create')->name('publicaciones.create');
-    
+
     Route::post('/publicaciones', 'store')->name('publicaciones.store');
-    
+
     Route::get('/publicaciones/{publicacion}', 'show')->name('publicaciones.show');
 
     Route::get('/publicaciones/{publicacion}/edit', 'edit')->name('publicaciones.edit');
@@ -56,6 +70,6 @@ Route::controller(ComentarioController::class)->group(function () {
     Route::delete('/comentarios/{comentario}', 'destroy')->name('comentarios.destroy');
 });
 
-Route::get('/test', function() {
+Route::get('/test', function () {
     return  Usuario::find(HomeController::getUsuarioId())->publicaciones->pluck('id');
 });
