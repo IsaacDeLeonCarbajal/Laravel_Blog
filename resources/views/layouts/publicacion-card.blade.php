@@ -7,7 +7,7 @@
         <div class="card-body">
             <h6 class="card-subtitle">{{ $subtitle }}</h6>
 
-            <p class="card-text">{{ $content }}</p>
+            <p class="card-text" style="white-space: pre-wrap;">{{ $content }}</p>
 
             <a href="{{ $route }}" class="btn btn-primary {{ Str::length($slot) ? '' : 'stretched-link' }}">Ver</a>
 

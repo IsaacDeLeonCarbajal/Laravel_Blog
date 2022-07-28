@@ -7,7 +7,7 @@
 @section('content-center')
     <h1 class="col-12 text-center">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
 
-    <label class="text-muted mt-4">Correo electrónico: {{ $usuario->correo }}</label>
+    <label class="text-muted mt-4">Correo electrónico: {{ $usuario->email }}</label>
 
     <div class="col-12 mt-4">
         <h3 class="col-12">Publicaciones</h3>

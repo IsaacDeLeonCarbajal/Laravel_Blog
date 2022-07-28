@@ -32,8 +32,4 @@ class HomeController extends Controller
         return view('home', compact('publicaciones', 'categorias', 'categoria'));
     }
 
-    public static function getUsuarioId()
-    {
-        return Auth::user()->id;
-    }
 }

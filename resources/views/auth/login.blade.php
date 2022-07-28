@@ -15,8 +15,13 @@
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                     @endif
                 </div>
-                <div class="form-group mb-3">
-                    <input class="form-control" type="password" name="password" placeholder="Contraseña">
+
+                <div class="mb-3">
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="password" name="password" placeholder="Contraseña" style="border-right: none;">
+
+                        <button class="btn btn-outline-secondary btn-contrasena" type="button" onclick="visibilidadContrasena(this, jQuery('input[name=password]'));"></button>
+                    </div>
 
                     @if ($errors->has('password'))
                         <span class="text-danger">{{ $errors->first('password') }}</span>

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,5 +72,5 @@ Route::controller(ComentarioController::class)->group(function () {
 });
 
 Route::get('/test', function () {
-    return  Usuario::find(HomeController::getUsuarioId())->publicaciones->pluck('id');
+    return Auth::user()->publicaciones->pluck('id');
 });

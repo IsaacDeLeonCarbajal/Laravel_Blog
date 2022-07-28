@@ -6,6 +6,7 @@ use App\Models\Comentario;
 use App\Models\Publicacion;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ComentarioController extends Controller
@@ -20,7 +21,7 @@ class ComentarioController extends Controller
         ]);
 
         $comentario = new Comentario();
-        $comentario->usuario_id = HomeController::getUsuarioId();
+        $comentario->usuario_id = Auth::user()->id;
         $comentario->publicacion_id = $request->publicacion_id;
         $comentario->contenido = $request->contenido;
 
@@ -44,7 +45,7 @@ class ComentarioController extends Controller
             'contenido' => 'required | string',
         ]);
 
-        if (!Usuario::find(HomeController::getUsuarioId())->comentarios->contains($comentario)) {
+        if (!Auth::user()->comentarios->contains($comentario)) {
             return "ERROR: No tiene permiso de editar ese comentario";
         }
 
@@ -56,7 +57,7 @@ class ComentarioController extends Controller
     }
 
     public function destroy(Comentario $comentario) {
-        if (!Usuario::find(HomeController::getUsuarioId())->comentarios->contains($comentario)) {
+        if (!Auth::user()->comentarios->contains($comentario)) {
             return "ERROR: No tiene permiso para eliminar ese comentario";
         }
 

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
     public function index()
     {
-        $usuario = Usuario::find(HomeController::getUsuarioId());
+        $usuario = Auth::user();
 
         return view('usuarios.index', compact('usuario'));
     }

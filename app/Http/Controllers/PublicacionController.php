@@ -7,6 +7,7 @@ use App\Models\CategoriaPublicacion;
 use App\Models\Publicacion;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 use function Symfony\Component\String\u;
@@ -31,7 +32,7 @@ class PublicacionController extends Controller
         ]);
 
         $publicacion = new Publicacion();
-        $publicacion->usuario_id = HomeController::getUsuarioId();
+        $publicacion->usuario_id = Auth::user()->id;
         $publicacion->titulo = $request->titulo;
         $publicacion->contenido = $request->contenido;
 
@@ -69,7 +70,7 @@ class PublicacionController extends Controller
             'categorias.*' =>  'integer | exists:categorias,id'
         ]);
 
-        if (!Usuario::find(HomeController::getUsuarioId())->publicaciones->contains($publicacion)) {
+        if (!Auth::user()->publicaciones->contains($publicacion)) {
             return "ERROR: No tiene permiso de editar esa publicación";
         }
 
@@ -95,7 +96,7 @@ class PublicacionController extends Controller
 
     public function destroy(Publicacion $publicacion)
     {
-        if (!Usuario::find(HomeController::getUsuarioId())->publicaciones->contains($publicacion)) {
+        if (!Auth::user()->publicaciones->contains($publicacion)) {
             return "ERROR: No tiene permiso para eliminar esa publicación";
         }
 
