@@ -5,7 +5,7 @@
 @section('content-center')
     <h1>Crear nueva publicación</h1>
 
-    <form class="mt-3" action="{{ route('publicaciones.store') }}" method="POST">
+    <form class="mt-3" action="{{ route('publicaciones.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <input class="form-control form-control-lg" type="text" name="titulo" value="{{ old('titulo') }}" placeholder="Titulo de la Publicación">
@@ -16,7 +16,15 @@
             @endcomponent
         @enderror
 
-        <textarea class="form-control mt-4" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
+        <input class="form-control mt-4" type="file" name="imagen">
+
+        @error('imagen')
+            @component('layouts.alert')
+                @slot('message', $message)
+            @endcomponent
+        @enderror
+
+        <textarea class="form-control mt-3" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
 
         @error('contenido')
             @component('layouts.alert')

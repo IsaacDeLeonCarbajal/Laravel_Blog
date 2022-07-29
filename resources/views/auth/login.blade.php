@@ -12,7 +12,9 @@
                     <input class="form-control" type="email" name="email" placeholder="Correo Electrónico">
 
                     @if ($errors->has('email'))
-                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @component('layouts.alert')
+                            @slot('message', $errors->first('email'))
+                        @endcomponent
                     @endif
                 </div>
 
@@ -24,7 +26,9 @@
                     </div>
 
                     @if ($errors->has('password'))
-                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                        @component('layouts.alert')
+                            @slot('message', $errors->first('password'))
+                        @endcomponent
                     @endif
                 </div>
 

@@ -5,13 +5,15 @@
 @section('content-center')
     <h3 class="col-12">Publicaciones recientes</h3>
 
-    @if (isset($categoria))
-        <label class="my-2">Categoría: {{ $categoria->categoria }}</label>
+    @if (isset($mensaje))
+        <label class="my-2">{{ $mensaje }}</label>
     @endif
 
     <div class="row row-cols-1 row-cols-md-2 col-12">
         @foreach ($publicaciones as $pub)
             @component('layouts.publicacion-card', ['categs' => $pub->categorias])
+                @slot('id', $pub->id)
+
                 @slot('title', $pub->titulo)
 
                 @slot('subtitle', $pub->usuario->nombre . ' ' . $pub->usuario->apellido_paterno . ' ' . Str::substr($pub->updated_at, 0, 10) . ' ')

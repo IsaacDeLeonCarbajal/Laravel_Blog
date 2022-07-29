@@ -9,6 +9,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 use function Symfony\Component\String\u;
 
@@ -28,7 +29,8 @@ class PublicacionController extends Controller
             'titulo' => 'required | string | max:200',
             'contenido' => 'required | string',
             'categorias' => 'required | array',
-            'categorias.*' =>  'integer | exists:categorias,id'
+            'categorias.*' => 'integer | exists:categorias,id',
+            'imagen' => [File::types(['png', 'jpg', 'jpeg'])->min(10)->max(12 * 1024), 'dimensions:min_width=600,min_height=400,max_width=1200,max_height=800']
         ]);
 
         $publicacion = new Publicacion();
@@ -45,6 +47,8 @@ class PublicacionController extends Controller
 
             $catPub->save();
         }
+
+        $request->file('imagen')->storeAs('publicaciones', $publicacion->id . '.png', 'public');
 
         return redirect()->route('publicaciones.show', $publicacion);
     }

@@ -1,5 +1,9 @@
 <div class="p-3">
     <div class="card">
+        @if(isset($id))
+            <img class="card-img-top" src="{{ asset('storage/publicaciones/' . $id . '.png') }}" onerror="this.style.display='none'">
+        @endif
+
         <div class="card-header">
             <h5 class="card-title">{{ $title }}</h5>
         </div>
@@ -11,7 +15,7 @@
 
             <a href="{{ $route }}" class="btn btn-primary {{ Str::length($slot) ? '' : 'stretched-link' }}">Ver</a>
 
-            {{$slot}}
+            {{ $slot }}
         </div>
 
         <div class="card-footer">

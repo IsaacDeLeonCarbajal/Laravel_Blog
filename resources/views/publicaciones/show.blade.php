@@ -7,9 +7,11 @@
 @section('content-center')
     <a href="{{ url()->previous() }}">Regresar</a>
 
-    <h1 class="col-12 text-center">{{ $publicacion->titulo }}</h1>
+    <img class="col-12" src="{{ asset('storage/publicaciones/' . $publicacion->id . '.png') }}" onerror="this.style.display='none'">
 
-    <div class="col-12 mt-5 d-flex justify-content-between text-muted">
+    <h1 class="col-12 mt-3 text-center">{{ $publicacion->titulo }}</h1>
+
+    <div class="col-12 mt-4 d-flex justify-content-between text-muted">
         <label>Autor: {{ $publicacion->usuario->nombre }} {{ $publicacion->usuario->apellido_paterno }} {{ $publicacion->usuario->apellido_materno }}</label>
         <label>Fecha de creación: {{ $publicacion->created_at }}</label>
         <label>Última vez editado: {{ $publicacion->updated_at }}</label>

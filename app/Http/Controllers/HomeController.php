@@ -18,18 +18,20 @@ class HomeController extends Controller
 
             $publicaciones->appends(['busqueda' => $request->busqueda]);
 
-            $categoria = null;
+            $mensaje = "Buscando: " . $request->busqueda;
         } else if ($categoria->exists) { //Si se filtró por categoría
             $publicaciones = Publicacion::whereIn('id', CategoriaPublicacion::where('categoria_id', $categoria->id)->pluck('publicacion_id'))->orderBy('updated_at', 'desc')->simplePaginate(10);
+    
+            $mensaje = "Categoría: " . $categoria->categoria;
         } else { //Si no se desea ningún filtro
             $publicaciones = Publicacion::orderBy('updated_at', 'desc')->simplePaginate(10);
 
-            $categoria = null;
+            $mensaje = null;
         }
 
         $categorias = Categoria::all();
 
-        return view('home', compact('publicaciones', 'categorias', 'categoria'));
+        return view('home', compact('publicaciones', 'categorias', 'mensaje'));
     }
 
 }
