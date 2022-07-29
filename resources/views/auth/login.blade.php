@@ -28,7 +28,7 @@
                     @endif
                 </div>
 
-                <label class="mb-3"><input class="me-2" type="checkbox" name="recordar">Recordar</label>
+                <label class="mb-3"><input class="me-2" type="checkbox" name="remember">Recordar</label>
 
                 <button class="col-12 btn btn-dark" type="submit">Iniciar Sesión</button>
             </form>

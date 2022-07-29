@@ -11,7 +11,7 @@ class LoginController extends Controller
     public function showForm()
     {
 
-      return view('auth.login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -21,20 +21,21 @@ class LoginController extends Controller
             'password' => 'required | string',
         ]);
 
-
-
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+
             return redirect()->intended(route('home'));
         }
 
         return redirect()->route('login.login')->with('error', 'El correo o la contraseña son inválidos');
     }
 
-    public function logout() {
-      Auth::logout();
+    public function logout()
+    {
+        Auth::logout();
 
-      return redirect()->route('login.showForm');
+        return redirect()->route('login.showForm');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -25,7 +26,7 @@ class RegisterController extends Controller
             'password_confirmation' => 'required | string',
         ]);
 
-        Usuario::create([
+        $usuario = Usuario::create([
             'nombre' => $request->nombre,
             'apellido_paterno' => $request->apellido_paterno,
             'apellido_materno' => $request->apellido_materno,
@@ -33,6 +34,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login.showForm');
+        Auth::loginUsingId($usuario->id, $request->filled('remember'));
+
+        return redirect()->route('usuarios.index');
     }
 }

@@ -10,6 +10,10 @@ class UsuarioController extends Controller
 {
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('home');
+        }
+
         $usuario = Auth::user();
 
         return view('usuarios.index', compact('usuario'));

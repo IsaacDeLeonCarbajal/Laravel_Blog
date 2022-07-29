@@ -3,7 +3,9 @@
 @section('title', 'Nueva publicación')
 
 @section('content-center')
-    <form action="{{ route('publicaciones.store') }}" method="POST">
+    <h1>Crear nueva publicación</h1>
+
+    <form class="mt-3" action="{{ route('publicaciones.store') }}" method="POST">
         @csrf
 
         <input class="form-control form-control-lg" type="text" name="titulo" value="{{ old('titulo') }}" placeholder="Titulo de la Publicación">
@@ -14,7 +16,7 @@
             @endcomponent
         @enderror
 
-        <textarea class="form-control mt-5" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
+        <textarea class="form-control mt-4" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
 
         @error('contenido')
             @component('layouts.alert')
