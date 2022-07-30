@@ -3,6 +3,8 @@
 @section('title', 'Editar publicación')
 
 @section('content-center')
+    <h1>Editar publicación</h1>
+
     <form action="{{ route('publicaciones.update', $publicacion) }}" method="POST">
         @csrf
 

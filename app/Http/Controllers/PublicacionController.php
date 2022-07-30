@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\CategoriaPublicacion;
 use App\Models\Publicacion;
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
-
-use function Symfony\Component\String\u;
 
 class PublicacionController extends Controller
 {
@@ -75,7 +72,9 @@ class PublicacionController extends Controller
         ]);
 
         if (!Auth::user()->publicaciones->contains($publicacion)) {
-            return "ERROR: No tiene permiso de editar esa publicación";
+            $mensaje = "No tiene permiso para editar esa publicación";
+            
+            return view('error', compact('mensaje'));
         }
 
         $publicacion->titulo = $request->titulo;
@@ -101,10 +100,14 @@ class PublicacionController extends Controller
     public function destroy(Publicacion $publicacion)
     {
         if (!Auth::user()->publicaciones->contains($publicacion)) {
-            return "ERROR: No tiene permiso para eliminar esa publicación";
+            $mensaje = "No tiene permiso para eliminar esa publicación";
+
+            return view('error', compact('mensaje'));
         }
 
         $publicacion->delete();
+
+        Storage::delete(asset('storage/publicaciones/' . $publicacion->id . '.png'));
 
         return redirect()->route('usuarios.index');
     }

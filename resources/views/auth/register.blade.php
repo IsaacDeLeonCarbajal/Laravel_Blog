@@ -119,5 +119,5 @@
 @endsection
 
 @section('content-right')
-    <a class="btn btn-warning" href="{{route('login.showForm')}}">Ya tienes una cuenta?</a>
+    <a class="btn btn-warning" href="{{route('login.showForm')}}">¿Ya tienes una cuenta?</a>
 @endsection

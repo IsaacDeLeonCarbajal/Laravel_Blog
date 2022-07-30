@@ -6,8 +6,6 @@ use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\UsuarioController;
-use App\Models\Usuario;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,8 +69,4 @@ Route::controller(ComentarioController::class)->group(function () {
     Route::put('/comentarios/{comentario}', 'update')->name('comentarios.update');
 
     Route::delete('/comentarios/{comentario}', 'destroy')->name('comentarios.destroy');
-});
-
-Route::get('/test', function () {
-    return Auth::user()->publicaciones->pluck('id');
 });

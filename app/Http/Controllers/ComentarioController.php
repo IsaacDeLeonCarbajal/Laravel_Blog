@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comentario;
-use App\Models\Publicacion;
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class ComentarioController extends Controller
 {
 
     public function store(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login.showForm');
+        }
+
         $request->validate([
             'contenido' => 'required | string',
             'publicacion_id' => 'required | exists:publicaciones,id',
@@ -36,17 +37,21 @@ class ComentarioController extends Controller
         return redirect()->route('publicaciones.show', ['publicacion' => $request->publicacion_id]);
     }
 
-    public function edit(Comentario $comentario) {
+    public function edit(Comentario $comentario)
+    {
         return view('comentarios.edit', compact('comentario'));
     }
 
-    public function update(Comentario $comentario, Request $request) {
+    public function update(Comentario $comentario, Request $request)
+    {
         $request->validate([
             'contenido' => 'required | string',
         ]);
 
         if (!Auth::user()->comentarios->contains($comentario)) {
-            return "ERROR: No tiene permiso de editar ese comentario";
+            $mensaje = "No tiene permiso para editar ese comentario";
+
+            return view('error', compact('mensaje'));
         }
 
         $comentario->contenido = $request->contenido;
@@ -56,9 +61,12 @@ class ComentarioController extends Controller
         return redirect()->route('usuarios.index');
     }
 
-    public function destroy(Comentario $comentario) {
+    public function destroy(Comentario $comentario)
+    {
         if (!Auth::user()->comentarios->contains($comentario)) {
-            return "ERROR: No tiene permiso para eliminar ese comentario";
+            $mensaje = "No tiene permiso para eliminar ese comentario";
+
+            return view('error', compact('mensaje'));
         }
 
         $comentario->delete();

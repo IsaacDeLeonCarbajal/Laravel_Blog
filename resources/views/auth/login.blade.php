@@ -5,6 +5,7 @@
 @section('content-center')
     <div class="card col-10 col-md-6 offset-1 offset-md-3">
         <h3 class="card-header text-center">Login</h3>
+
         <div class="card-body">
             <form method="POST" action="{{ route('login.login') }}">
                 @csrf
@@ -44,4 +45,8 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('content-right')
+    <a class="btn btn-warning" href="{{ route('register.showForm') }}">¿No tienes una cuenta?</a>
 @endsection

@@ -6,7 +6,7 @@
     <h3 class="col-12">Publicaciones recientes</h3>
 
     @if (isset($mensaje))
-        <label class="my-2">{{ $mensaje }}</label>
+        <a class= "btn btn-secondary my-2" href="{{ route('home') }}">{{ $mensaje }}</a>
     @endif
 
     <div class="row row-cols-1 row-cols-md-2 col-12">

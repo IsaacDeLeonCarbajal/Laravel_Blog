@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('apellido_materno', 30);
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -32,39 +32,45 @@
 
         @include('layouts.comentario-list', ['comentario' => $publicacion])
 
-        <form class="my-4" action="{{ route('comentarios.store') }}" method="POST">
-            @csrf
+        @auth
+            <form class="my-4" action="{{ route('comentarios.store') }}" method="POST">
+                @csrf
 
-            <h5 class="mb-3">Deja un comentario</h5>
+                <h5 class="mb-3">Deja un comentario</h5>
 
-            <button class="btn btn-outline-secondary py-1 mb-3" id="btn-cancelar-respuesta" type="button" onclick="responder();" style="display: none;"></button>
+                <button class="btn btn-outline-secondary py-1 mb-3" id="btn-cancelar-respuesta" type="button" onclick="responder();" style="display: none;"></button>
 
-            <input type="hidden" name="publicacion_id" value="{{ $publicacion->id }}">
+                <input type="hidden" name="publicacion_id" value="{{ $publicacion->id }}">
 
-            @error('publicacion_id')
-                @component('layouts.alert')
-                    @slot('message', $message)
-                @endcomponent
-            @enderror
+                @error('publicacion_id')
+                    @component('layouts.alert')
+                        @slot('message', $message)
+                    @endcomponent
+                @enderror
 
-            <input type="hidden" name="comentario_id" value="">
+                <input type="hidden" name="comentario_id" value="">
 
-            @error('comentario_id')
-                @component('layouts.alert')
-                    @slot('message', $message)
-                @endcomponent
-            @enderror
+                @error('comentario_id')
+                    @component('layouts.alert')
+                        @slot('message', $message)
+                    @endcomponent
+                @enderror
 
-            <textarea class="form-control mb-3" name="contenido" rows="3">{{ old('contenido') }}</textarea>
+                <textarea class="form-control mb-3" name="contenido" rows="3">{{ old('contenido') }}</textarea>
 
-            @error('contenido')
-                @component('layouts.alert')
-                    @slot('message', $message)
-                @endcomponent
-            @enderror
+                @error('contenido')
+                    @component('layouts.alert')
+                        @slot('message', $message)
+                    @endcomponent
+                @enderror
 
-            <button class="btn btn-primary" type="submit">Enviar</button>
-        </form>
+                <button class="btn btn-primary" type="submit">Enviar</button>
+            </form>
+        @endauth
+
+        @guest
+            <a class="btn btn-primary my-4" href="{{ route('login.showForm') }}">Inicia sesión para dejar un comentario</a>
+        @endguest
     </div>
 @endsection
 

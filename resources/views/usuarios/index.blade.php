@@ -19,6 +19,8 @@
         <div class="row row-cols-1 row-cols-md-2 col-12">
             @foreach ($usuario->publicaciones as $pub)
                 @component('layouts.publicacion-card', ['categs' => $pub->categorias])
+                    @slot('id', $pub->id)
+
                     @slot('title', $pub->titulo)
 
                     @slot('subtitle', $pub->usuario->nombre . ' ' . $pub->usuario->apellido_paterno . ' ' . Str::substr($pub->updated_at, 0, 10) . ' ')
