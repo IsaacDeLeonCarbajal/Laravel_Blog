@@ -5,7 +5,11 @@
 @endsection
 
 @section('content-center')
-    <h1 class="col-12 text-center">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
+    <div class="text-center">
+        <img class="col-4 img-thumbnail" src="{{ asset('storage/usuarios/' . $usuario->id . '.png') }}" onerror="this.style.display='none'">
+    </div>
+
+    <h1 class="col-12 text-center mt-3">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
 
     <label class="text-muted mt-4">Correo electrónico: {{ $usuario->email }}</label>
 
@@ -24,10 +28,9 @@
                     @slot('route', route('publicaciones.show', $pub))
 
                     <a class="btn btn-secondary ms-2" href="{{ route('publicaciones.edit', $pub) }}">Editar</a>
-                    
-                    <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar</button>
 
-                    @endcomponent
+                    <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar</button>
+                @endcomponent
             @endforeach
         </div>
 

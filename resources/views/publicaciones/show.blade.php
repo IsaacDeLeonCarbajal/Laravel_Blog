@@ -7,7 +7,7 @@
 @section('content-center')
     <a href="{{ url()->previous() }}">Regresar</a>
 
-    <img class="col-12" src="{{ asset('storage/publicaciones/' . $publicacion->id . '.png') }}" onerror="this.style.display='none'">
+    <img class="col-12 rounded" src="{{ asset('storage/publicaciones/' . $publicacion->id . '.png') }}" onerror="this.style.display='none'">
 
     <h1 class="col-12 mt-3 text-center">{{ $publicacion->titulo }}</h1>
 
@@ -79,17 +79,13 @@
 
             @if ($publicacion->id != $pub->id)
                 @component('layouts.publicacion-list', ['categs' => $pub->categorias])
-                    @slot('title')
-                        {{ $pub->titulo }}
-                    @endslot
+                    @slot('title', $pub->titulo)
 
-                    @slot('content')
-                        {{ $pub->usuario->nombre }} {{ $pub->usuario->apellido_paterno }}: {{ Str::substr($pub->updated_at, 0, 10) }}
-                    @endslot
+                    @slot('subtitle', $pub->usuario->nombre . $pub->usuario->apellido_paterno . ' : ' . Str::substr($pub->updated_at, 0, 10))
 
-                    @slot('route')
-                        {{ route('publicaciones.show', $pub) }}
-                    @endslot
+                    @slot('content', Str::substr($pub->contenido, 0, 100))
+
+                    @slot('route', route('publicaciones.show', $pub))
                 @endcomponent
             @endif
         @endforeach

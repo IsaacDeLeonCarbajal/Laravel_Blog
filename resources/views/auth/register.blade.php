@@ -3,7 +3,7 @@
 @section('title', 'Registrarse')
 
 @section('content-center')
-    <form action="{{ route('register.store') }}" method="POST">
+    <form action="{{ route('register.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="card">
@@ -14,43 +14,94 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
+                        <div class="form-control">
+                            <label class="form-text">Foto de perfil</label>
+                            <input class="form-control" type="file" name="foto_perfil">
+                        </div>
+
+                        @if ($errors->has('foto_perfil'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('foto_perfil'))
+                            @endcomponent
+                        @endif
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
                         <label class="form-text">Nombre(s)</label>
-                        <input class="form-control" type="text" name="nombre" placeholder="Nombre(s)">
+                        <input class="form-control" type="text" name="nombre" placeholder="Nombre(s)" value="{{ old('nombre') }}">
+
+                        @if ($errors->has('nombre'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('nombre'))
+                            @endcomponent
+                        @endif
                     </div>
 
                     <div class="col">
                         <label class="form-text">Apellido Paterno</label>
-                        <input class="form-control" type="text" name="apellido_paterno" placeholder="Apellido Paterno">
+                        <input class="form-control" type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="{{ old('apellido_paterno') }}">
+
+                        @if ($errors->has('apellido_paterno'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('apellido_paterno'))
+                            @endcomponent
+                        @endif
                     </div>
 
                     <div class="col">
                         <label class="form-text">Apellido Materno</label>
-                        <input class="form-control" type="text" name="apellido_materno" placeholder="Apellido Paterno">
+                        <input class="form-control" type="text" name="apellido_materno" placeholder="Apellido Paterno" value="{{ old('apellido_materno') }}">
+
+                        @if ($errors->has('apellido_materno'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('apellido_materno'))
+                            @endcomponent
+                        @endif
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-5">
                         <label class="form-text">Correo Electrónico</label>
-                        <input class="form-control" type="email" name="email" placeholder="Correo Electrónico">
+                        <input class="form-control" type="email" name="email" placeholder="Correo Electrónico" value="{{ old('email') }}">
+
+                        @if ($errors->has('email'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('email'))
+                            @endcomponent
+                        @endif
                     </div>
 
                     <div class="col">
                         <label class="form-text">Contraseña</label>
                         <div class="input-group mb-3">
                             <input class="form-control" type="password" name="password" placeholder="Contraseña" style="border-right: none;">
-    
+
                             <button class="btn btn-outline-secondary btn-contrasena" type="button" onclick="visibilidadContrasena(this, jQuery('input[name=password]'));"></button>
                         </div>
+
+                        @if ($errors->has('password'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('password'))
+                            @endcomponent
+                        @endif
                     </div>
 
                     <div class="col">
                         <label class="form-text">Confirmar Contraseña</label>
                         <div class="input-group mb-3">
                             <input class="form-control" type="password" name="password_confirmation" placeholder="Contraseña" style="border-right: none;">
-    
+
                             <button class="btn btn-outline-secondary btn-contrasena" type="button" onclick="visibilidadContrasena(this, jQuery('input[name=password_confirmation]'));"></button>
                         </div>
+
+                        @if ($errors->has('password_confirmation'))
+                            @component('layouts.alert')
+                                @slot('message', $errors->first('password_confirmation'))
+                            @endcomponent
+                        @endif
                     </div>
                 </div>
 
@@ -65,4 +116,8 @@
             </div>
         </div>
     </form>
+@endsection
+
+@section('content-right')
+    <a class="btn btn-warning" href="{{route('login.showForm')}}">Ya tienes una cuenta?</a>
 @endsection

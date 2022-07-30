@@ -6,8 +6,12 @@
 
 @section('content-center')
     <a href="{{ url()->previous() }}">Regresar</a>
+    
+    <div class="text-center">
+        <img class="col-4 img-thumbnail" src="{{ asset('storage/usuarios/' . $usuario->id . '.png') }}" onerror="this.style.display='none'">
+    </div>
 
-    <h1 class="col-12 text-center">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
+    <h1 class="col-12 text-center mt-3">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }} {{ $usuario->apellido_materno }}</h1>
 
     <label class="text-muted mt-4">Correo electrónico: {{ $usuario->email }}</label>
 
