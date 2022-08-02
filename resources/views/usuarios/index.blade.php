@@ -10,7 +10,7 @@
     <label class="text-muted mt-4">Correo electrónico: {{ $usuario->email }}</label>
 
     <div class="col-12 mt-4">
-        @if (!Auth::user()->publicaciones->isEmpty())
+        @if (!$usuario->publicaciones->isEmpty())
             {{-- Sólo mostrar si el usuario tiene publicaciones --}}
             
             <h3 class="col-12">Publicaciones</h3>
@@ -28,7 +28,7 @@
 
                         @slot('route', route('publicaciones.show', $pub))
 
-                        @if (Auth::user()->editor)
+                        @if ($usuario->editor)
                             <a class="btn btn-secondary ms-2" href="{{ route('publicaciones.edit', $pub) }}">Editar</a>
 
                             <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar</button>
@@ -59,7 +59,7 @@
 @endsection
 
 @section('content-right')
-    @if (Auth::user()->editor)
+    @if ($usuario->editor)
         <a class="btn btn-primary" href="{{ route('publicaciones.create') }}">Nueva publicación</a>
     @endif
 @endsection
