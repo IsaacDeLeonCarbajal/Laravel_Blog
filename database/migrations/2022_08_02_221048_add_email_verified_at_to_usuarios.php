@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->boolean('editor')->nullable(false)->default(false);
+            $table->timestamp('email_verified_at')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->dropColumn('editor');
+            $table->dropColumn('email_verified_at');
         });
     }
 };

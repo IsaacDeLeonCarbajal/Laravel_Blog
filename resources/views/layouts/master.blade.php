@@ -44,7 +44,7 @@
 
                         @guest
                             <li class="nav-item mb-3">
-                                <a class="btn btn-outline-primary me-3" href="{{ route('login.showForm') }}">Iniciar Sesión</a>
+                                <a class="btn btn-outline-primary me-3" href="{{ route('login') }}">Iniciar Sesión</a>
                             </li>
 
                             <li class="nav-item mb-3">
