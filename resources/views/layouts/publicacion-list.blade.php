@@ -4,7 +4,7 @@
     </div>
 
     <div class="card-body py-0">
-        <label class="col-12 card-text fs-6"><small>{{ $subtitle }}</small></label>
+        <label class="col-12 card-text fs-6 text-muted"><small>{{ $subtitle }}</small></label>
 
         <label class="col-12 card-text fs-6 lh-1"><small>{{ $content }}</small></label>
 

@@ -3,7 +3,7 @@
 @section('title', 'Registrarse')
 
 @section('content-center')
-    <form action="{{ route('register.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('register.store') }}" method="POST">
         @csrf
 
         <div class="card">
@@ -12,21 +12,6 @@
             </div>
 
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="form-control">
-                            <label class="form-text">Foto de perfil</label>
-                            <input class="form-control" type="file" name="foto_perfil">
-                        </div>
-
-                        @if ($errors->has('foto_perfil'))
-                            @component('layouts.alert')
-                                @slot('message', $errors->first('foto_perfil'))
-                            @endcomponent
-                        @endif
-                    </div>
-                </div>
-
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-text">Nombre(s)</label>

@@ -87,7 +87,7 @@
                 @component('layouts.publicacion-list', ['categs' => $pub->categorias])
                     @slot('title', $pub->titulo)
 
-                    @slot('subtitle', $pub->usuario->nombre . $pub->usuario->apellido_paterno . ' : ' . Str::substr($pub->updated_at, 0, 10))
+                    @slot('subtitle', $pub->usuario->nombre . ' ' . $pub->usuario->apellido_paterno . ' : ' . Str::substr($pub->updated_at, 0, 10))
 
                     @slot('content', Str::substr($pub->contenido, 0, 100))
 

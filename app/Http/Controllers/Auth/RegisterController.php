@@ -7,7 +7,6 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\File;
 
 class RegisterController extends Controller
 {
@@ -24,8 +23,7 @@ class RegisterController extends Controller
             'apellido_materno' => 'required | string | max:30',
             'email' => 'required | string | email | max:255 | unique:usuarios',
             'password' => 'required | string | min:8 | confirmed',
-            'password_confirmation' => 'required | string',
-            'foto_perfil' => [File::types(['png', 'jpg', 'jpeg'])->max(5 * 1024), 'dimensions:min_height:100,max_height:300,ratio=1/1']
+            'password_confirmation' => 'required | string'
         ]);
 
         $usuario = Usuario::create([
@@ -35,8 +33,6 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        $request->file('foto_perfil')->storeAs('usuarios', $usuario->id . '.png', 'public');
 
         Auth::loginUsingId($usuario->id, $request->filled('remember'));
 

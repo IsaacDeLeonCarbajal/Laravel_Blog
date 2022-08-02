@@ -10,8 +10,8 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('home');
+        if (!Auth::check()) { //Si no se ha iniciado sesión
+            return redirect()->route('home'); //Redireccionar a la página principal
         }
 
         $usuario = Auth::user();

@@ -15,6 +15,10 @@ class PublicacionController extends Controller
 
     public function create()
     {
+        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de publicar
+            return view('error', ['mensaje' => 'No tienes permiso de crear publicaciones']);
+        }
+
         $categorias = Categoria::all();
 
         return view('publicaciones.create', compact('categorias'));
@@ -57,6 +61,10 @@ class PublicacionController extends Controller
 
     public function edit(Publicacion $publicacion)
     {
+        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de editar
+            return view('error', ['mensaje' => 'No tienes permiso de editar publicaciones']);
+        }
+
         $categorias = Categoria::all();
 
         return view('publicaciones.edit', compact('publicacion', 'categorias'));
@@ -72,9 +80,7 @@ class PublicacionController extends Controller
         ]);
 
         if (!Auth::user()->publicaciones->contains($publicacion)) {
-            $mensaje = "No tiene permiso para editar esa publicación";
-            
-            return view('error', compact('mensaje'));
+            return view('error', ['mensaje' => 'No tiene permiso para editar esa publicación']);
         }
 
         $publicacion->titulo = $request->titulo;
@@ -99,10 +105,10 @@ class PublicacionController extends Controller
 
     public function destroy(Publicacion $publicacion)
     {
-        if (!Auth::user()->publicaciones->contains($publicacion)) {
-            $mensaje = "No tiene permiso para eliminar esa publicación";
-
-            return view('error', compact('mensaje'));
+        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de eliminar
+            return view('error', ['mensaje' => 'No tienes permiso de eliminar publicaciones']);
+        } else if (!Auth::user()->publicaciones->contains($publicacion)) {
+            return view('error', ['mensaje' => 'No tiene permiso para eliminar esa publicación']);
         }
 
         $publicacion->delete();
