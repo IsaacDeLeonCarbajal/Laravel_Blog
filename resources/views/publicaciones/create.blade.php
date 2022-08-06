@@ -24,7 +24,7 @@
             @endcomponent
         @enderror
 
-        <textarea class="form-control mt-3" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
+        <textarea class="form-control mt-4" name="contenido" rows="10" placeholder="Contenido">{{ old('contenido') }}</textarea>
 
         @error('contenido')
             @component('layouts.alert')

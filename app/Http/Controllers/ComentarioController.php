@@ -63,14 +63,16 @@ class ComentarioController extends Controller
 
     public function destroy(Comentario $comentario)
     {
-        if (!Auth::user()->comentarios->contains($comentario)) {
-            $mensaje = "No tiene permiso para eliminar ese comentario";
-
-            return view('error', compact('mensaje'));
+        if (!Auth::check()) { //Si no se ha iniciado sesión
+            return view('error', ['mensaje' => 'No tiene permiso de eliminar comentarios']);
+        } else if (!Auth::user()->roles->contains('rol', 'admin')) { //Si el usuario no es administrador
+            if (!Auth::user()->comentarios->contains($comentario)) { //Si la comentario no pertenece al usuario
+                return view('error', ['mensaje' => 'No tiene permiso para eliminar ese comentario']);
+            }
         }
 
         $comentario->delete();
 
-        return redirect()->route('usuarios.index');
+        return redirect()->back();
     }
 }

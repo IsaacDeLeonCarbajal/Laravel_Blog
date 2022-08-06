@@ -105,16 +105,20 @@ class PublicacionController extends Controller
 
     public function destroy(Publicacion $publicacion)
     {
-        if (!Auth::check() || !Auth::user()->roles->contains('rol', 'editor')) { //Si el usuario no tiene permiso de eliminar
-            return view('error', ['mensaje' => 'No tienes permiso de eliminar publicaciones']);
-        } else if (!Auth::user()->publicaciones->contains($publicacion)) {
-            return view('error', ['mensaje' => 'No tiene permiso para eliminar esa publicación']);
+        if (!Auth::check()) { //Si no se ha iniciado sesión
+            return view('error', ['mensaje' => 'No tiene permiso de eliminar publicaciones']);
+        } else if (!Auth::user()->roles->contains('rol', 'admin')) { //Si el usuario no es administrador
+            if (!Auth::user()->roles->contains('rol', 'editor')) { //Si es usuario no es editor
+                return view('error', ['mensaje' => 'No tiene permiso de eliminar publicaciones']);
+            } else if (!Auth::user()->publicaciones->contains($publicacion)) { //Si la publicación no pertenece al usuario
+                return view('error', ['mensaje' => 'No tiene permiso para eliminar esa publicación']);
+            }
         }
 
         $publicacion->delete();
 
         Storage::delete(asset('storage/publicaciones/' . $publicacion->id . '.png'));
-
-        return redirect()->route('usuarios.index');
+        
+        return redirect()->back();
     }
 }

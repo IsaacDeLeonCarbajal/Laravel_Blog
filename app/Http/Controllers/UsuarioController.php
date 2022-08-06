@@ -74,6 +74,6 @@ class UsuarioController extends Controller
             }
         }
 
-        return redirect()->route('usuarios.admin');
+        return redirect()->route('usuarios.edit', $usuario);
     }
 }

@@ -10,6 +10,7 @@
     <table class="table table-sm table-striped table-hover border">
         <thead>
             <tr>
+                <th>id</th>
                 <th>Nombre</th>
                 <th>Permisos</th>
             </tr>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach ($usuarios as $usu)
                 <tr>
+                    <td>{{ $usu->id }}</td>
                     <td>{{ $usu->apellido_paterno }} {{ $usu->apellido_materno }} {{ $usu->nombre }}</td>
                     <td>Usuario | 
                         @foreach($usu->roles->pluck('rol')->toArray() as $r)
@@ -28,7 +30,6 @@
                 </tr>
             @endforeach
         </tbody>
-
     </table>
 
     {{ $usuarios->links() }}
