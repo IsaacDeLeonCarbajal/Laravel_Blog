@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         Publicacion::factory(80)->create();
         Comentario::factory(240)->create();
         CategoriaPublicacion::factory(140)->create();
+        $this->call(RolSeeder::class);
+        $this->call(RolUsuarioSeeder::class);
     }
 }

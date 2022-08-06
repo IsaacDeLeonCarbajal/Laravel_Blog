@@ -42,4 +42,8 @@ class Usuario extends Authenticatable implements MustVerifyEmail
     public function comentarios() {
         return $this->hasMany(Comentario::class);
     }
+
+    public function roles() {
+        return $this->belongsToMany(Rol::class)->orderBy('id', 'desc');
+    }
 }

@@ -15,7 +15,7 @@ class PublicacionController extends Controller
 
     public function create()
     {
-        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de publicar
+        if (!Auth::check() || !Auth::user()->roles->contains('rol', 'editor')) { //Si el usuario no tiene permiso de publicar
             return view('error', ['mensaje' => 'No tienes permiso de crear publicaciones']);
         }
 
@@ -61,7 +61,7 @@ class PublicacionController extends Controller
 
     public function edit(Publicacion $publicacion)
     {
-        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de editar
+        if (!Auth::check() || !Auth::user()->roles->contains('rol', 'editor')) { //Si el usuario no tiene permiso de editar
             return view('error', ['mensaje' => 'No tienes permiso de editar publicaciones']);
         }
 
@@ -105,7 +105,7 @@ class PublicacionController extends Controller
 
     public function destroy(Publicacion $publicacion)
     {
-        if (!Auth::check() || !Auth::user()->editor) { //Si el usuario no tiene permiso de eliminar
+        if (!Auth::check() || !Auth::user()->roles->contains('rol', 'editor')) { //Si el usuario no tiene permiso de eliminar
             return view('error', ['mensaje' => 'No tienes permiso de eliminar publicaciones']);
         } else if (!Auth::user()->publicaciones->contains($publicacion)) {
             return view('error', ['mensaje' => 'No tiene permiso para eliminar esa publicación']);

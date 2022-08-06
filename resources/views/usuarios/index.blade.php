@@ -28,7 +28,7 @@
 
                         @slot('route', route('publicaciones.show', $pub))
 
-                        @if ($usuario->editor)
+                        @if ($usuario->roles->contains('rol', 'editor'))
                             <a class="btn btn-secondary ms-2" href="{{ route('publicaciones.edit', $pub) }}">Editar</a>
 
                             <button class="btn btn-danger ms-2" type="button" onclick="eliminarPublicacion('{{ route('publicaciones.destroy', $pub) }}', '{{ $pub->titulo }}', {{ count($pub->respuestas) }});">Eliminar</button>
@@ -59,7 +59,7 @@
 @endsection
 
 @section('content-right')
-    @if ($usuario->editor)
+    @if ($usuario->roles->contains('rol', 'editor'))
         <a class="btn btn-primary" href="{{ route('publicaciones.create') }}">Nueva publicación</a>
     @endif
 @endsection

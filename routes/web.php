@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -52,8 +53,14 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::controller(UsuarioController::class)->group(function () {
     Route::get('/usuarios', 'index')->name('usuarios.index')->middleware('verified');
-
+    
+    Route::get('/usuarios/admin', 'admin')->name('usuarios.admin');
+    
     Route::get('/usuarios/{usuario}', 'show')->name('usuarios.show');
+
+    Route::get('/usuarios/{usuario}/edit', 'edit')->name('usuarios.edit');
+
+    Route::put('/usuarios/{usuario}', 'update')->name('usuarios.update');
 });
 
 Route::controller(PublicacionController::class)->group(function () {
@@ -65,7 +72,7 @@ Route::controller(PublicacionController::class)->group(function () {
 
     Route::get('/publicaciones/{publicacion}/edit', 'edit')->name('publicaciones.edit');
 
-    Route::put('/publicaciones/{publicacion}', 'update')->name('publicaciones.update');
+    Route::put('/publicaciones/{publicacion}', 'update')->name('publicaciones.update')->middleware('verified');
 
     Route::delete('/publicaciones/{publicacion}', 'destroy')->name('publicaciones.destroy');
 });

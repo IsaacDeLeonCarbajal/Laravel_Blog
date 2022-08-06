@@ -33,6 +33,12 @@
 
                     <ul class="navbar-nav mb-2 mb-lg-0" id="div-btn-sesion">
                         @auth
+                            @if (Auth::user()->roles->contains('rol', 'admin'))
+                                <li class="nav-item mb-3">
+                                    <a class="btn btn-warning me-3" href="{{ route('usuarios.admin') }}">Administrar</a>
+                                </li>
+                            @endif
+
                             <li class="nav-item mb-3">
                                 <a class="btn btn-outline-dark me-3" href="{{ route('login.logout') }}">Cerrar Sesión</a>
                             </li>
